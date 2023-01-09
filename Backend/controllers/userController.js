@@ -2,6 +2,7 @@ const connection = require('../config/connection');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 exports.signup = (req, res, next) => {
@@ -107,3 +108,37 @@ exports.forgotpassword = (req, res, next) => {
     }
   });
 };
+
+exports.get = (req, res, next) => {
+  var query =
+    "select id,name,email,contactNumber,status from user  where role='user'";
+  connection.query(query, (err, result) => {
+    if (!err) {
+      return res.status(200).json(result);
+    } else {
+      return res.status(400).json(err);
+    }
+  });
+};
+
+// update user status to be approvel
+exports.update = (req, res, next) => {
+  let user = req.body;
+  var query = 'update user set status=? where  id=?';
+  connection.query(query, [user.status, user.id], (err, result) => {
+    if (!err) {
+      if (result.affectedRows == 0) {
+        return res.status(404).json({ message: 'user  id does not exist' });
+      }
+      return res.status(200).json({ message: 'User updated successfully' });
+    } else {
+      return res.status(500).json(err);
+    }
+  });
+};
+
+exports.checkToken = (req, res, next) => {
+  return res.status(200).json({ message: 'true' });
+};
+
+exports.changePassword = (req, res, next) => {};
