@@ -141,4 +141,32 @@ exports.checkToken = (req, res, next) => {
   return res.status(200).json({ message: 'true' });
 };
 
-exports.changePassword = (req, res, next) => {};
+exports.changePassword = (req, res, next) => {
+  const user = req.body;
+  const email = res.locals.email;
+  var query = 'select * from  user  where  email=? and password=? ';
+  connection.query(query, [email, user.oldPassword], (err, results) => {
+    if (!err) {
+      if (results.length <= 0) {
+        return res.status(400).json({ message: 'Incorrect old password' });
+      } else if (results[0].password == user.oldPassword) {
+        query = 'update  user set password=? where email=?';
+        connection.query(query, [user.newPassword, email], (err, results) => {
+          if (!err) {
+            return res
+              .status(200)
+              .json({ message: 'password updated successfully' });
+          } else {
+            return res.status(500).json(err);
+          }
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ message: 'something  went wrong please try again' });
+      }
+    } else {
+      return res.status(400).json(err);
+    }
+  });
+};
