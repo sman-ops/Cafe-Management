@@ -9,3 +9,9 @@ create table user(
     UNIQUE (email)
 )
 insert into user(name,contactNumber,email,password,status,role) values("Admin","1234512345","admin@gmail.com","admin","true","admin")
+
+create table category(
+    id  int NOT NULL  AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    primary key(id)
+)
