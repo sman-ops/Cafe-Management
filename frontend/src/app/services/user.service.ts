@@ -19,4 +19,10 @@ export class UserService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }
+
+  login(data: any) {
+    return this.httpClient.post(this.url + '/user/signin/', data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
 }
