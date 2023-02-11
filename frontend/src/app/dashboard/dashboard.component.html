@@ -1,1 +1,41 @@
-<h1>dfsd</h1>
+<body>
+  <mat-card>
+    <b><span>Dashbord</span></b>
+  </mat-card>
+  <br />
+  <div class="row">
+    <div class="column">
+      <div class="card">
+        <div class="container">
+          <h2 title="title">Total category</h2>
+          <h1 title="title">{{ data?.category }}</h1>
+          <button class="button" [routerLink]="['/cafe/category']">
+            View categroy
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <div class="container">
+          <h2 title="title">Total Product</h2>
+          <h1 title="title">{{ data?.prodcut }}</h1>
+          <button class="button" [routerLink]="['/cafe/product']">
+            View product
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <div class="container">
+          <h2 title="title">Total bill</h2>
+          <h1 title="title">{{ data?.bill }}</h1>
+          <button class="button" [routerLink]="['/cafe/bill']">
+            View bill
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
